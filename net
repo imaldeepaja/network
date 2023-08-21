@@ -326,6 +326,73 @@ R1(config)# ip route 192.168.2.0 255.255.255.0 192.168.1.2
 
 
 
+..........................troubleshoot..........................
+
+01 .Ping Test:  To check basic connectivity to a host.
+
+Example:
+ping google.com
+
+
+02 .Traceroute:To trace the route packets take to reach a destination.
+
+Example:
+traceroute google.com
+
+03 .DNS Resolution:To check if DNS is resolving correctly.
+
+Example:
+
+nslookup google.com
+
+04 .Checking IP Configuration:To verify IP address, subnet mask, and gateway.
+
+Example:
+ip addr
+ip route
+
+05 .Checking Interface Status:To see the status of network interfaces.
+
+Example:
+ifconfig eth0
+
+06 .Checking ARP Table: To see ARP entries (IP-to-MAC mappings).
+
+Example:
+arp -a
+
+07 .Packet Capture:To capture and analyze network traffic.
+
+Example using tcpdump:
+sudo tcpdump -i eth0 -w capture.pcap
+
+08 .Testing Port Connectivity:To check if a port is open on a remote host.
+
+Example using telnet:
+telnet google.com 80
+
+09 .Checking Firewall Rules:To see active firewall rules.
+
+Example:
+sudo iptables -L
+
+10 .Network Interface Reset:To reset a network interface.
+
+Example:
+
+sudo ifconfig eth0 down
+sudo ifconfig eth0 up
+
+11 .Checking DHCP Leases:To view active DHCP leases.
+
+Example:
+sudo dhclient -v
+
+12 .Testing Loopback Interface:To verify the local network stack is working.
+
+Example:
+ping 127.0.0.1
+
 
 
 
