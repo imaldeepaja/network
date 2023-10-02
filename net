@@ -1,397 +1,336 @@
-Q 01
-
+                ******import*****
 
-........... save the works..............
-Switch1> enable
-Switch1# write memory
-        OR
-Switch1# copy running-config startup-config
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
+                *******load the data in to jupyter ****
 
-........router name changed...........
+dataset = pd.read_csv("Bank1.csv")
 
-Switch2> enable
-Switch2# configure terminal
-Switch2(config)# hostname S2
-S2(config)# exit
+                *****get out put****
 
-..........cisco password for console line and vty interface lines..........
+dataset.head()
 
-Switch2> enable
-Switch2# configure terminal
-Switch2(config)# line con 0
-Switch2(config-line)# password cisco
-Switch2(config-line)# login
-Switch2(config-line)# exit
+                *****get the bar chart salary and position*****
 
-Switch2(config)# line vty 0 15
-Switch2(config-line)# password cisco
-Switch2(config-line)# login
-Switch2(config-line)# exit
-Switch2(config)# exit
+import pandas as pd
+import matplotlib.pyplot as plt
 
-........ secret password............
+df = pd.read_csv('Company_ABC_HumanResource.csv')
 
-Switch1> enable
-Switch1# configure terminal
-Switch1(config)# enable secret cisco
-Switch1(config)# exit
+plt.figure(figsize=(10, 6))
 
+plt.bar(df['Position'], df['Salary'])
+plt.xlabel('Position')
+plt.ylabel('Salary')
+plt.title('Position vs Salary')
+plt.xticks(rotation=45, ha='right')
 
-........... Encrypt all  passwords..........
+plt.tight_layout()
+plt.show(),
 
-Switch1> enable
-Switch1# configure terminal
-Switch1(config)# service password-encryption
-Switch1(config)# exit
+                *****get the bar chart *****
 
-.......... (MODT) banner using “Authorized Person Only!”..................
+import pandas as pd
+import matplotlib.pyplot as plt
 
-Switch1> enable
-Switch1# configure terminal
-Switch1(config)# banner motd #
-Authorized Person Only!
-#
-Switch1(config)# exit
+df = pd.read_csv('Company_ABC_HumanResource.csv')
 
-............... Configure  Addressing Table...................
-S2> enable
-S2# configure terminal
-S2(config)# interface FastEthernet0/1
-S2(config-if)# ip address 192.168.1.5 255.255.255.0
-S2(config-if)# no shutdown
-S2(config-if)# exit
+department_counts = df['Department'].value_counts()
 
-S2(config)# interface FastEthernet0/2
-S2(config-if)# ip address 192.168.1.6 255.255.255.0
-S2(config-if)# no shutdown
-S2(config-if)# exit
+plt.figure(figsize=(10, 6))
 
-S2(config)# interface FastEthernet0/3
-S2(config-if)# ip address 192.168.1.7 255.255.255.0
-S2(config-if)# no shutdown
-S2(config-if)# exit
-S2(config)# exit
+department_counts.plot(kind='bar', color='skyblue')
+plt.xlabel('Department')
+plt.ylabel('Number of Employees')
+plt.title('Number of Employees in Different Departments')
+plt.xticks(rotation=45, ha='right')
 
-..............vlan...........
+plt.tight_layout()
+plt.show()
 
-S1> enable
-S1# configure terminal
-S1(config)# interface VLAN1
-S1(config-if)# ip address 192.168.1.7 255.255.255.0
-S1(config-if)# no shutdown
-S1(config-if)# exit
-S1(config)# exit
 
-........................................................................................................... 
+                *****get the sectter *****
 
-Q 02
+import pandas as pd
+import matplotlib.pyplot as plt
 
-Device      Interface          IP Address
+df = pd.read_csv('Company_ABC_HumanResource.csv')
 
-R1          G0/0/0             192.168.1.129/27
-            G0/0/1.10          192.168.1.1/27
-            G0/0/1.20          192.168.1.33/27
+plt.figure(figsize=(10, 6))
 
-R2          G0/0/0             192.168.1.130/27
-            G0/0/1.30          192.168.1.65/27
-            G0/0/1.40          192.168.1.97/27
-S1
-S2
-PC-1        NIC                192.168.1.2/27
+plt.scatter(df['EmployerSatisfaction'], df['Salary'], alpha=0.5)
+plt.xlabel('Employer Satisfaction')
+plt.ylabel('Salary')
+plt.title('Employer Satisfaction vs Salary')
 
-PC-2        NIC                192.168.1.3/27
+plt.tight_layout()
+plt.show()
 
-PC-3        NIC                192.168.1.34/27
 
-PC-4        NIC                192.168.1.35/27
+                ****missing valuse*****
 
-PC-5        NIC                192.168.1.66/27
+import pandas as pd
 
-PC-6        NIC                192.168.1.67/27
+df = pd.read_csv('Company_ABC_HumanResource.csv')
 
-PC-7        NIC                192.168.1.98/27
+missing_values = df.isna().sum()
 
-PC-8        NIC                192.168.1.99/27
+print(missing_values)
 
 
-........VLANs as follows and assign interfaces for each VLAN on each switch.............
 
-S1> enable
-S1# configure terminal
+                ****remaining_missing_values*****
 
-S1(config)# vlan 10
-S1(config-vlan)# name VLAN10
-S1(config-vlan)# exit
 
-S1(config)# vlan 20
-S1(config-vlan)# name VLAN20
-S1(config-vlan)# exit
+import pandas as pd
 
-S1(config)# interface FastEthernet0/1
-S1(config-if)# switchport mode access
-S1(config-if)# switchport access vlan 10
-S1(config-if)# exit
+df = pd.read_csv('Company_ABC_HumanResource.csv')
 
-S1(config)# interface FastEthernet0/2
-S1(config-if)# switchport mode access
-S1(config-if)# switchport access vlan 10
-S1(config-if)# exit
+mode_marital_status = df['MaritalStatus'].mode()[0]
 
-S1(config)# interface FastEthernet0/3
-S1(config-if)# switchport mode access
-S1(config-if)# switchport access vlan 20
-S1(config-if)# exit
+df['MaritalStatus'].fillna(mode_marital_status, inplace=True)
 
-S1(config)# interface FastEthernet0/4
-S1(config-if)# switchport mode access
-S1(config-if)# switchport access vlan 20
-S1(config-if)# exit
+remaining_missing_values = df.isna().sum()
 
-S1(config)# exit
+print(remaining_missing_values)
 
+        *********************
 
+import pandas as pd
 
-..........static route..............
-R1> enable
-R1# configure terminal
+df = pd.read_csv('Company_ABC_HumanResource.csv')
 
-R1(config)# ip route 0.0.0.0 0.0.0.0 192.168.1.1
-R1(config)# ip route 192.168.1.32 255.255.255.224 192.168.1.33
-R1(config)# ip route 192.168.1.96 255.255.255.224 192.168.1.97
+mean_salary = df['Salary'].mean()
 
-R1(config)# exit
+df['Salary'].fillna(mean_salary, inplace=True)
 
-..........trunk on GigabitEthernet0/1 ...............
+remaining_missing_values = df.isna().sum()
 
-S1> enable
-S1# configure terminal
+print(remaining_missing_values)
 
-S1(config)# interface GigabitEthernet0/1
-S1(config-if)# switchport mode trunk
-S1(config-if)# exit
 
-S1(config)# exit
 
-...........      Disable DNS lookup .................
+                ******save data *******************
 
-S2> enable
-S2# configure terminal
+import pandas as pd
 
-S2(config)# no ip domain-lookup
+df = pd.read_csv('Company_ABC_HumanResource.csv')
 
-S2(config)# exit
+mean_salary = df['Salary'].mean()
 
-...........  Set domain name ...............
+df['Salary'].fillna(mean_salary, inplace=True)
 
-R1> enable
-R1# configure terminal
+preprocessed_filename = 'PreprocessedCompany_ABC_HumanResource.csv'
+df.to_csv(preprocessed_filename, index=False)
 
-R1(config)# ip domain-name ccna.com
+import shutil
+destination_folder = 'seu.is.18.ict.060'
+shutil.move(preprocessed_filename, destination_folder)
 
-R1(config)# exit
+print(f"Preprocessed dataset saved as '{preprocessed_filename}' in the '{destination_folder}' folder.")
 
-.................password on both routers for SSH ................
 
-R2> enable
-R2# configure terminal
+                ********creare array*****
 
-R2(config)# username ccna privilege 15 password ccna
+data_array = df.to_numpy()
 
-R2(config)# exit
+                ******k -mean **********
 
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
 
-....................Generate 1024-bit RSA keys............................
+df = pd.read_csv('Components_of_Fertilizer.csv')
 
-R2(config)# crypto key generate rsa general-keys modulus 1024
+data_array = df.to_numpy()
 
+inertia = []
 
-...........................VTY lines for SSH access ...............................
+for k in range(1, 11):
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    kmeans.fit(data_array)
+    inertia.append(kmeans.inertia_)
 
-R1> enable
-R1# configure terminal
 
-R1(config)# line vty 0 4
-R1(config-line)# transport input ssh
-R1(config-line)# login local
-R1(config-line)# exit
+plt.figure(figsize=(10, 6))
+plt.plot(range(1, 11), inertia, marker='o')
+plt.xlabel('Number of Clusters')
+plt.ylabel('Sum of Squared Distances (Inertia)')
+plt.title('Elbow Method for Optimal Number of Clusters')
+plt.xticks(range(1, 11))
+plt.show()
 
-R1(config)# exit
 
-...........................................................................................................
+                ***********clustering **********
+import pandas as pd
+from sklearn.cluster import KMeans
 
-Q03
+df = pd.read_csv('Components_of_Fertilizer.csv')
 
-Device          Interface       IPv4 Address      Subnet Mask        Default Gateway
+data_array = df.to_numpy()
 
-R1          G0/1                192.168.1.1        255.255.255.0          N/A
-            S0/0/0              192.168.4.2        255.255.255.0          N/A
+num_clusters = 3
 
-R2          G0/1                192.168.2.1        255.255.255.0          N/A
-            S0/0/1              192.168.5.2        255.255.255.0          N/A
+kmeans = KMeans(n_clusters=num_clusters, init='k-means++', random_state=42)
 
-R3          G0/1                192.168.3.1        255.255.255.0          N/A
-            S0/0/0              192.168.4.1        255.255.255.0          N/A
-            S0/0/1              192.168.5.1        255.255.255.0          N/A
+kmeans.fit(data_array)
 
-PC-1        NIC                 DHCP Assigned      DHCP Assigned          DHCP Assigned
+cluster_labels = kmeans.labels_
 
-PC-2        NIC                 DHCP Assigned      DHCP Assigned          DHCP Assigned
+df['Cluster'] = cluster_labels
 
-PC-3        NIC                 DHCP Assigned      DHCP Assigned          DHCP Assigned
+print(df.head())
 
-PC-4        NIC                 DHCP Assigned      DHCP Assigned          DHCP Assigned
+                **********matrix implementation************
 
-DNS Server  NIC                192.168.3.254       255.255.255.0           192.168.3.1
+matrix=[]
+r = int(input("enter the rows"))
+c = int(input("enter the coloms"))
 
 
-...................... R3 to exclude the first 10 addresses from the R1 LAN and R2 Lan..................................
 
-R3> enable
-R3# configure terminal
+********transform**********
 
-R3(config)# access-list 100 deny ip any 192.168.1.0 0.0.0.15
-R3(config)# access-list 100 deny ip any 192.168.2.0 0.0.0.15
-R3(config)# access-list 100 permit ip any any
+transform_metrix =[]
 
-R3(config)# ip dhcp excluded-address 192.168.1.1 192.168.1.10
-R3(config)# ip dhcp excluded-address 192.168.2.1 192.168.2.10
+for a in range(0,c):
+  transform_metrix.append(b[0] for b in matrix)
 
-R3(config)# interface GigabitEthernet0/1
-R3(config-if)# ip access-group 100 in
-R3(config-if)# exit
+transform_matrix
 
-R3(config)# interface Serial0/0/0
-R3(config-if)# ip access-group 100 in
-R3(config-if)# exit
+tuple[2,3,5,6.5]
 
-R3(config)# interface Serial0/0/1
-R3(config-if)# ip access-group 100 in
-R3(config-if)# exit
+array=[2,3,4,5,6,7,8,9,10]
+from array import array
 
-R3(config)# exit
+from datetime import date
 
+today = date.today()
+print("Today's date:", today)
 
+from datetime import date
 
-........................................DHCP pool named R1-LAN and R2-LAN .............................
+def calculateAge(dob):
+    today = date.today()
+    age = today.date- dob.date -((today.month, today.day) <
+         (dob.month, dob.day))
 
+    return age
 
-R3> enable
-R3# configure terminal
+print(calculateAge(date(1999, 10, 24)), " years old")
 
-R3(config)# ip dhcp pool R1-LAN
-R3(dhcp-config)# network 192.168.1.0 255.255.255.240
-R3(dhcp-config)# default-router 192.168.1.1
-R3(dhcp-config)# exit
+*********numpy**************
 
-R3(config)# ip dhcp pool R2-LAN
-R3(dhcp-config)# network 192.168.2.0 255.255.255.240
-R3(dhcp-config)# default-router 192.168.2.1
-R3(dhcp-config)# exit
 
-R3(config)# exit
+import numpy as np
 
+np.zeros(10, int)
 
+np.ones(5, int)
 
-.........................DHCP pool R1 and R2 LANs....................
+array1 = np.array([10,20,30])
+array1
 
-R3(dhcp-config)# dns-server 192.168.3.1
+array2 = np.array([40,50,60])
+array2
 
+new_array = np.concatenate([array1,array2])
+new_array
 
-............... helper address for the LAn.......................
+np.empty(10)
 
-R1> enable
-R1# configure terminal
+np.arange(100)
 
-R1(config)# interface GigabitEthernet0/1
-R1(config-if)# ip helper-address 192.168.3.1
-R1(config-if)# exit
+np.arange(1,11)
 
-R1(config)# exit
+a = np.array([1,2,3,4])
+a
 
+b = np.array([[1,2,3,4],[5,6,7,8]])
+b
 
-..............................static route on ..................................
+c = np.array([[7,2,15,1],[8,4,25,3]])
+c
 
-R3> enable
-R3# configure terminal
+**********sort ***********
 
-R3(config)# ip route 192.168.1.0 255.255.255.0 192.168.4.2
-R3(config)# ip route 192.168.2.0 255.255.255.0 192.168.5.2
+np.sort(c)
 
-R3(config)# exit
+print('shape of the array',np.shape(a))
+print('size of the array',np.size(a))
+print('daimention',np.ndim(a))
 
-................................static route on R1 for R2 network and R2 for R1 Network  .......................................
+print('shape of the array',np.shape(b))
+print('size of the array',np.size(b))
+print('daimention',np.ndim(b))
 
-R1(config)# ip route 192.168.2.0 255.255.255.0 192.168.1.2
+print("shape",c.shape)
+print("size",c.size)
+print("shape",c.ndim)
 
+np.reshape(c, (4,2))
 
 
-..........................troubleshoot..........................
 
-01 .Ping Test:  To check basic connectivity to a host.
+d = np.arange(1,16)
+d
 
-Example:
-ping google.com
+d.ndim
 
+e = np.reshape(d,(3,5))
+e
 
-02 .Traceroute:To trace the route packets take to reach a destination.
+e[np.newaxis, :]
 
-Example:
-traceroute google.com
+print(e.ndim)
+x=e[np.newaxis, :]
+print(x)
+print(x.ndim)
 
-03 .DNS Resolution:To check if DNS is resolving correctly.
+y = np.expand_dims(e, axis =0)
+print(y)
 
-Example:
+abc = np.array(np.arange(1,11)*11)
+abc
 
-nslookup google.com
+abc[3]+abc[5]
 
-04 .Checking IP Configuration:To verify IP address, subnet mask, and gateway.
+a1 = np.array(abc[5:10])
+a1
 
-Example:
-ip addr
-ip route
+a2 = np.array(abc[5:])
+a2
 
-05 .Checking Interface Status:To see the status of network interfaces.
+abc
 
-Example:
-ifconfig eth0
+(abc > 50)
 
-06 .Checking ARP Table: To see ARP entries (IP-to-MAC mappings).
 
-Example:
-arp -a
+*************serice******************
 
-07 .Packet Capture:To capture and analyze network traffic.
 
-Example using tcpdump:
-sudo tcpdump -i eth0 -w capture.pcap
+my_serice = pd.Series([5,10,15,20,25])
+print(my_serice)
 
-08 .Testing Port Connectivity:To check if a port is open on a remote host.
+my_serice.dtype
 
-Example using telnet:
-telnet google.com 80
+my_serice[3]
 
-09 .Checking Firewall Rules:To see active firewall rules.
+s1 = my_serice +100
+s1
 
-Example:
-sudo iptables -L
+s1 = my_serice *10
+s1
 
-10 .Network Interface Reset:To reset a network interface.
+mydate =pd.date_range("11/08/2023",periods=14)
+mydate
 
-Example:
+df = pd.DataFrame(np.random.rand(14,6),index=mydate,columns=list("ABCDEF"))
 
-sudo ifconfig eth0 down
-sudo ifconfig eth0 up
+df
 
-11 .Checking DHCP Leases:To view active DHCP leases.
-
-Example:
-sudo dhclient -v
-
-12 .Testing Loopback Interface:To verify the local network stack is working.
-
-Example:
-ping 127.0.0.1
 
 
 
