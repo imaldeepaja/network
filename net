@@ -189,16 +189,30 @@ matrix=[]
 r = int(input("enter the rows"))
 c = int(input("enter the coloms"))
 
+**********create metrics************
+import numpy as np
+
+# Create a matrix using a list of lists
+matrix = np.array([[1, 2, 3],
+                   [4, 5, 6],
+                   [7, 8, 9]])
+
+# Print the matrix
+print("Original Matrix:")
+print(matrix)
 
 
 ********transform**********
+# Transpose the matrix
+transposed_matrix = np.transpose(matrix)
 
-transform_metrix =[]
+# Print the transposed matrix
+print("Transposed Matrix:")
+print(transposed_matrix)
 
-for a in range(0,c):
-  transform_metrix.append(b[0] for b in matrix)
 
-transform_matrix
+
+
 
 tuple[2,3,5,6.5]
 
